@@ -9,7 +9,8 @@ import com.javabasics.service.user.UserServiceImpl;
 import org.junit.Test;
 import static junit.framework.TestCase.*;
 
-public class UserServiceImplTest {
+public class UserServiceImplTest
+{
     private UserDao userDao=new JdbcUserDao();
     private UserService userService=new UserServiceImpl(userDao);
     private UserEntity userEntity=new UserEntity();
