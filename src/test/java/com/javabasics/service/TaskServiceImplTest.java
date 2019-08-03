@@ -13,7 +13,8 @@ import java.sql.Connection;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
-public class TaskServiceImplTest {
+public class TaskServiceImplTest
+{
     private UserDao userDao = new InMemoryUserDao();
     private TaskDAO taskDAO = new InMemoryTaskDao();
     private TaskRepository taskRepository=new TaskRepositoryImpl(taskDAO,userDao);
