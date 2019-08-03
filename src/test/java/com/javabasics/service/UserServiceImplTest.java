@@ -17,7 +17,8 @@ public class UserServiceImplTest {
     public void idIsNotNullAfterSaving()
     {
         User user=new User();
-        user.name="John";
+        user.name="John2";
+        user.password="12345678";
         Long id=userService.save(user);
         assertTrue(id!=null);
     }

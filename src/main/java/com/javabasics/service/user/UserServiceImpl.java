@@ -24,12 +24,14 @@ public class UserServiceImpl implements UserService {
     private User convertToUser(UserEntity userEntity) {
         User user=new User();
         user.name=userEntity.name;
+        user.password=userEntity.password;
         return user;
     }
 
     private UserEntity convertToUserEntity(User user) {
         UserEntity userEntity=new UserEntity();
         userEntity.name=user.name;
+        userEntity.password=user.password;
         return userEntity;
     }
 }

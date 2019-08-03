@@ -13,8 +13,10 @@ public class JdbcUserDao implements UserDao {
         ResultSet rs = null;
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement("insert into user(name) values(?)");
+            statement = connection.prepareStatement("insert into user(name,password) values(?,?)");
             statement.setString(1, userEntity.name);
+            statement.setString(2, userEntity.password);
+            statement.execute();
             //statement.executeUpdate(String.format("insert into user(name) values('%s')", userEntity.name));
             // select LAST_INSERT_ID()
             rs = statement.executeQuery("select LAST_INSERT_ID() as id");
