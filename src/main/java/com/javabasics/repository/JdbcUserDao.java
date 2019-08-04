@@ -40,4 +40,25 @@ public class JdbcUserDao implements UserDao {
     public UserEntity findById(Long id) {
         return null;
     }
+
+    @Override
+    public UserEntity findByNameAndPassword(String name, String password) {
+        UserEntity userEntity=new UserEntity();
+        PreparedStatement statement=null;
+        try {
+            statement=connection.prepareStatement("select * from user where name=? and password=?");
+            statement.setString(1,name);
+            statement.setString(2,password);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next())
+            {
+                userEntity.id=rs.getLong(1);
+                userEntity.name=rs.getString(2);
+                userEntity.password=rs.getString(3);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userEntity;
+    }
 }
