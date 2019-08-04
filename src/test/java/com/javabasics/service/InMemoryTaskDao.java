@@ -1,17 +1,17 @@
 package com.javabasics.service;
 
 import com.javabasics.repository.entity.TaskEntity;
-import com.javabasics.repository.TaskDAO;
+import com.javabasics.repository.task.TaskDao;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryTaskDao implements TaskDAO {
+public class InMemoryTaskDao implements TaskDao {
     private Long id=0L;
     private Map<Long, TaskEntity> tasks=new HashMap<>();
 
     @Override
-    public long save(TaskEntity task) {
+    public Long save(TaskEntity task) {
         tasks.put(++id,task);
         return id;
     }

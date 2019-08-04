@@ -5,4 +5,5 @@ import com.javabasics.service.task.model.Task;
 public interface TaskService {
     Long save(Task task);
     Task findById(Long id);
+    Task findByUserId(Long userId);
 }

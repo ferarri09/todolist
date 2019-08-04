@@ -22,6 +22,12 @@ public class TaskServiceImpl implements TaskService
 
         return taskEntityToTask(taskDao.findById(id));
     }
+
+    @Override
+    public Task findByUserId(Long userId) {
+        return taskEntityToTask(taskDao.findByUserId(userId));
+    }
+
     private Task taskEntityToTask(TaskEntity taskEntity)
     {
         Task task=new Task();
