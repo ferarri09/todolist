@@ -1,4 +1,4 @@
-package com.javabasics.service.Model;
+package com.javabasics.controller;
 
 public class TaskDTO
 {

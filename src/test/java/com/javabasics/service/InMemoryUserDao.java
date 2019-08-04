@@ -1,8 +1,7 @@
 package com.javabasics.service;
 
-import com.javabasics.repository.Entity.TaskEntity;
-import com.javabasics.repository.Entity.UserEntity;
-import com.javabasics.repository.UserDao;
+import com.javabasics.repository.entity.UserEntity;
+import com.javabasics.repository.user.UserDao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,5 +18,10 @@ public class InMemoryUserDao implements UserDao {
     @Override
     public UserEntity findById(Long id) {
         return users.get(id);
+    }
+
+    @Override
+    public UserEntity findByNameAndPassword(String name, String password) {
+        return null;
     }
 }

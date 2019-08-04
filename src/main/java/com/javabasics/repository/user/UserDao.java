@@ -1,8 +1,6 @@
-package com.javabasics.repository;
+package com.javabasics.repository.user;
 
-import com.javabasics.repository.Entity.TaskEntity;
-import com.javabasics.repository.Entity.UserEntity;
-import com.javabasics.service.Model.User;
+import com.javabasics.repository.entity.UserEntity;
 
 public interface UserDao {
     public Long save(UserEntity user);

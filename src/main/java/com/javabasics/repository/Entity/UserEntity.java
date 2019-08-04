@@ -1,6 +1,4 @@
-package com.javabasics.repository.Entity;
-
-import com.javabasics.service.Model.User;
+package com.javabasics.repository.entity;
 
 public class UserEntity{
     public Long id;

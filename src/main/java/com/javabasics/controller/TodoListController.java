@@ -1,6 +1,5 @@
 package com.javabasics.controller;
 import org.springframework.web.bind.annotation.*;
-import com.javabasics.service.Model.*;
 
 @RestController
 @RequestMapping("todo-list")

@@ -1,6 +1,6 @@
-package com.javabasics.service;
+package com.javabasics.service.task;
 
-import com.javabasics.service.Model.Task;
+import com.javabasics.service.task.model.Task;
 
 public interface TaskService {
     Long save(Task task);

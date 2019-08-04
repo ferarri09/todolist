@@ -1,6 +1,6 @@
 package com.javabasics.service;
 
-import com.javabasics.repository.Entity.TaskEntity;
+import com.javabasics.repository.entity.TaskEntity;
 import com.javabasics.repository.TaskDAO;
 
 import java.util.HashMap;

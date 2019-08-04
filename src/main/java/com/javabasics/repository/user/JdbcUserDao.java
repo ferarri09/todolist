@@ -1,7 +1,7 @@
-package com.javabasics.repository;
+package com.javabasics.repository.user;
 
 import com.javabasics.connection.ConnectionFactory;
-import com.javabasics.repository.Entity.UserEntity;
+import com.javabasics.repository.entity.UserEntity;
 
 import java.sql.*;
 
@@ -38,7 +38,22 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public UserEntity findById(Long id) {
-        return null;
+        UserEntity userEntity=new UserEntity();
+        PreparedStatement statement=null;
+        try {
+            statement=connection.prepareStatement("select * from user where id = ?");
+            statement.setLong(1,id);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next())
+            {
+                userEntity.id=rs.getLong(1);
+                userEntity.name=rs.getString(2);
+                userEntity.password=rs.getString(3);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userEntity;
     }
 
     @Override
