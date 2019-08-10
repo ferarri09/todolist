@@ -20,4 +20,9 @@ public class InMemoryTaskDao implements TaskDao {
     public TaskEntity findById(Long id) {
         return tasks.get(id);
     }
+
+    @Override
+    public TaskEntity findByUserId(Long userId) {
+        return null;
+    }
 }
