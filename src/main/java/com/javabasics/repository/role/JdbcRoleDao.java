@@ -3,8 +3,11 @@ package com.javabasics.repository.role;
 import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.entity.RoleEntity;
 import com.javabasics.repository.entity.TaskEntity;
+import com.javabasics.service.role.model.Role;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JdbcRoleDao implements RoleDao{
     Connection connection= ConnectionFactory.getConnection();
@@ -45,5 +48,24 @@ public class JdbcRoleDao implements RoleDao{
             e.printStackTrace();
         }
         return roleEntity;
+    }
+
+    @Override
+    public List<Role> findAll() {
+        PreparedStatement statement=null;
+        ResultSet rs=null;
+        List<Role> roles=new ArrayList<>();
+        try {
+            statement=connection.prepareStatement("select id, name from role");
+            rs=statement.executeQuery();
+            while(rs.next())
+            {
+                Role role = new Role(rs.getLong(1), rs.getString(2));
+                roles.add(role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roles;
     }
 }

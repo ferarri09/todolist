@@ -4,6 +4,8 @@ import com.javabasics.repository.entity.RoleEntity;
 import com.javabasics.repository.role.RoleDao;
 import com.javabasics.service.role.model.Role;
 
+import java.util.List;
+
 public class RoleServiceImpl implements RoleService{
     RoleDao roleDao;
     public RoleServiceImpl(RoleDao roleDao)
@@ -14,12 +16,13 @@ public class RoleServiceImpl implements RoleService{
     public Long save(Role role) {
         return roleDao.save(roleToRoleEntity(role));
     }
-
-
-
     @Override
     public Role findById(Long id) {
         return roleEntityToRole(roleDao.findById(id));
+    }
+    @Override
+    public List findAll() {
+        return roleDao.findAll();
     }
     private RoleEntity roleToRoleEntity(Role role) {
         RoleEntity roleEntity=new RoleEntity();
