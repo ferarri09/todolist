@@ -12,6 +12,8 @@ import com.javabasics.service.user.model.User;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.util.List;
+
 import static junit.framework.TestCase.assertTrue;
 
 public class TaskServiceImplTest {
@@ -32,13 +34,19 @@ public class TaskServiceImplTest {
         assertTrue(taskId!=null && taskId!=0);
     }
     @Test
+    public void ListIsNotNullAfterFindingByUserId()
+    {
+        Task task=new Task();
+        task.name="Dont forget";
+        task.userId=1L;
+        taskService.save(task);
+        List<Task> tasks=taskService.findByUserId(task.userId);
+        assertTrue(!tasks.isEmpty());
+
+    }
+    @Test
     public void testConnection() {
         Connection connection = ConnectionFactory.getConnection();
         assertTrue(connection != null);
     }
-
-
-
-
-
 }

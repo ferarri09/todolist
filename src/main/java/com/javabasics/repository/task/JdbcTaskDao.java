@@ -4,6 +4,8 @@ import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.entity.TaskEntity;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JdbcTaskDao implements TaskDao {
     private Connection connection = ConnectionFactory.getConnection();
@@ -48,22 +50,25 @@ public class JdbcTaskDao implements TaskDao {
     }
 
     @Override
-    public TaskEntity findByUserId(Long userId) {
-        TaskEntity taskEntity=new TaskEntity();
+    public List<TaskEntity> findByUserId(Long userId) {
+        List<TaskEntity> tasks=new ArrayList<>();
         PreparedStatement statement=null;
         try {
-            statement=connection.prepareStatement("select * from task where user_id = ?");
+            statement=connection.prepareStatement("select id,name from task where user_id = ?");
             statement.setLong(1,userId);
             ResultSet rs = statement.executeQuery();
-            if(rs.next())
+            while(rs.next())
             {
+                TaskEntity taskEntity=new TaskEntity();
                 taskEntity.id=rs.getLong(1);
                 taskEntity.name=rs.getString(2);
-                taskEntity.userId=rs.getLong(3);
+                taskEntity.userId=userId;
+                tasks.add(taskEntity);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return taskEntity;
+        return tasks;
     }
+
 }

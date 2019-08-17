@@ -4,6 +4,7 @@ import com.javabasics.repository.entity.TaskEntity;
 import com.javabasics.repository.task.TaskDao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskDao implements TaskDao {
@@ -22,7 +23,7 @@ public class InMemoryTaskDao implements TaskDao {
     }
 
     @Override
-    public TaskEntity findByUserId(Long userId) {
+    public List<TaskEntity> findByUserId(Long userId) {
         return null;
     }
 }

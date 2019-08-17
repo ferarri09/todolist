@@ -4,6 +4,9 @@ import com.javabasics.repository.entity.TaskEntity;
 import com.javabasics.repository.task.TaskDao;
 import com.javabasics.service.task.model.Task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskServiceImpl implements TaskService
 {
     private TaskDao taskDao;
@@ -24,8 +27,14 @@ public class TaskServiceImpl implements TaskService
     }
 
     @Override
-    public Task findByUserId(Long userId) {
-        return taskEntityToTask(taskDao.findByUserId(userId));
+    public List<Task> findByUserId(Long userId) {
+        List<TaskEntity> taskEntities=taskDao.findByUserId(userId);
+        List<Task> tasks=new ArrayList<>();
+        for(int i=0;i<=taskEntities.size()-1;i++)
+        {
+            tasks.add(taskEntityToTask(taskEntities.get(i)));
+        }
+        return tasks;
     }
 
     private Task taskEntityToTask(TaskEntity taskEntity)

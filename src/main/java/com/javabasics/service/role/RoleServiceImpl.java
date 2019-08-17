@@ -21,7 +21,7 @@ public class RoleServiceImpl implements RoleService{
         return roleEntityToRole(roleDao.findById(id));
     }
     @Override
-    public List findAll() {
+    public List<Role> findAll() {
         return roleDao.findAll();
     }
     private RoleEntity roleToRoleEntity(Role role) {

@@ -5,6 +5,9 @@ import com.javabasics.repository.role.RoleDao;
 import com.javabasics.service.role.model.Role;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,5 +31,12 @@ public class RoleServiceImplTest {
         Long id=roleService.save(role);
         Role returnedRole=roleService.findById(id);
         assertEquals(role,returnedRole);
+    }
+    @Test
+    public void rolesIsNotNullAfterFindingAll()
+    {
+        List<Role> roles=new ArrayList<>();
+        roles=roleService.findAll();
+        assertTrue(!roles.isEmpty());
     }
 }
