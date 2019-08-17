@@ -35,7 +35,7 @@ public class RoleServiceImplTest {
     @Test
     public void rolesIsNotNullAfterFindingAll()
     {
-        List<Role> roles=new ArrayList<>();
+        List<Role> roles;
         roles=roleService.findAll();
         assertTrue(!roles.isEmpty());
     }

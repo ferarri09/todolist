@@ -5,6 +5,7 @@ import com.javabasics.repository.role.RoleDao;
 import com.javabasics.service.role.model.Role;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoleServiceImpl implements RoleService{
     RoleDao roleDao;
@@ -22,7 +23,9 @@ public class RoleServiceImpl implements RoleService{
     }
     @Override
     public List<Role> findAll() {
-        return roleDao.findAll();
+        return roleDao.findAll().stream()
+                .map(this::roleEntityToRole)
+                .collect(Collectors.toList());
     }
     private RoleEntity roleToRoleEntity(Role role) {
         RoleEntity roleEntity=new RoleEntity();
