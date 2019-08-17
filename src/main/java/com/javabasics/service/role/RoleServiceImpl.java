@@ -1,12 +1,9 @@
 package com.javabasics.service.role;
-
 import com.javabasics.repository.entity.RoleEntity;
 import com.javabasics.repository.role.RoleDao;
 import com.javabasics.service.role.model.Role;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 public class RoleServiceImpl implements RoleService{
     RoleDao roleDao;
     public RoleServiceImpl(RoleDao roleDao)

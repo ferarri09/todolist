@@ -1,13 +1,9 @@
 package com.javabasics.repository.role;
-
 import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.entity.RoleEntity;
-import com.javabasics.service.role.model.Role;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class JdbcRoleDao implements RoleDao{
     Connection connection= ConnectionFactory.getConnection();
 

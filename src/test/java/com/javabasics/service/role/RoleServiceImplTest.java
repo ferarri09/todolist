@@ -1,17 +1,11 @@
 package com.javabasics.service.role;
-
 import com.javabasics.repository.role.JdbcRoleDao;
 import com.javabasics.repository.role.RoleDao;
 import com.javabasics.service.role.model.Role;
 import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-
 public class RoleServiceImplTest {
     RoleDao roleDao=new JdbcRoleDao();
     RoleService roleService=new RoleServiceImpl(roleDao);

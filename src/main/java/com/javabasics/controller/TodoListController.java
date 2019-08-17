@@ -1,6 +1,5 @@
 package com.javabasics.controller;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("todo-list")
 public class TodoListController

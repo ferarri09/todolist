@@ -1,14 +1,11 @@
 package com.javabasics.service.user;
-
 import com.javabasics.repository.entity.UserEntity;
 import com.javabasics.repository.user.JdbcUserDao;
 import com.javabasics.repository.user.UserDao;
 import com.javabasics.service.user.model.User;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 public class UserServiceImplTest
 {
     private UserDao userDao=new JdbcUserDao();
@@ -23,7 +20,6 @@ public class UserServiceImplTest
         Long id=userService.save(user);
         assertTrue(id!=null);
     }
-
     @Test
     public void userIsEqualUserAfterSaving() {
         User user=new User();
@@ -33,7 +29,6 @@ public class UserServiceImplTest
         User returnedUser = userService.findById(id);
         assertEquals(user, returnedUser);
     }
-
     @Test
     public void userIsNotNullAfterFinding()
     {

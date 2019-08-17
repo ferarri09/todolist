@@ -1,12 +1,9 @@
 package com.javabasics.repository.task;
-
 import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.entity.TaskEntity;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 public class JdbcTaskDao implements TaskDao {
     private Connection connection = ConnectionFactory.getConnection();
     @Override
@@ -28,7 +25,6 @@ public class JdbcTaskDao implements TaskDao {
 
         return null;
     }
-
     @Override
     public TaskEntity findById(Long id) {
         TaskEntity taskEntity=new TaskEntity();
@@ -48,7 +44,6 @@ public class JdbcTaskDao implements TaskDao {
         }
         return taskEntity;
     }
-
     @Override
     public List<TaskEntity> findByUserId(Long userId) {
         List<TaskEntity> tasks=new ArrayList<>();
@@ -70,5 +65,4 @@ public class JdbcTaskDao implements TaskDao {
         }
         return tasks;
     }
-
 }

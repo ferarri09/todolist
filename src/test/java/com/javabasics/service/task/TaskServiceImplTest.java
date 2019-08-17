@@ -1,5 +1,4 @@
 package com.javabasics.service.task;
-
 import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.task.JdbcTaskDao;
 import com.javabasics.repository.task.TaskDao;
@@ -10,12 +9,9 @@ import com.javabasics.service.user.UserService;
 import com.javabasics.service.user.UserServiceImpl;
 import com.javabasics.service.user.model.User;
 import org.junit.Test;
-
 import java.sql.Connection;
 import java.util.List;
-
 import static junit.framework.TestCase.assertTrue;
-
 public class TaskServiceImplTest {
     private TaskDao taskDao=new JdbcTaskDao();
     private TaskService taskService=new TaskServiceImpl(taskDao);

@@ -1,17 +1,12 @@
 package com.javabasics.service.task;
-
 import com.javabasics.repository.entity.TaskEntity;
 import com.javabasics.repository.task.TaskDao;
 import com.javabasics.service.task.model.Task;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 public class TaskServiceImpl implements TaskService
 {
     private TaskDao taskDao;
-
     public TaskServiceImpl(TaskDao taskDao) {
         this.taskDao = taskDao;
     }
@@ -20,20 +15,17 @@ public class TaskServiceImpl implements TaskService
     public Long save(Task task) {
         return taskDao.save(taskToTaskEntity(task));
     }
-
     @Override
     public Task findById(Long id) {
 
         return convertToTask(taskDao.findById(id));
     }
-
     @Override
     public List<Task> findByUserId(Long userId) {
         return taskDao.findByUserId(userId).stream()
                 .map(this::convertToTask)
                 .collect(Collectors.toList());
     }
-
     private Task convertToTask(TaskEntity taskEntity)
     {
         Task task=new Task();

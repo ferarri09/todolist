@@ -1,15 +1,11 @@
 package com.javabasics.repository;
-
 import com.javabasics.connection.ConnectionFactory;
-
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 public class GenericDao<T> {
     Connection connection=ConnectionFactory.getConnection();
     public Long save(T t)

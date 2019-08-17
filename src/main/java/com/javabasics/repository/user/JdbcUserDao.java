@@ -1,13 +1,9 @@
 package com.javabasics.repository.user;
-
 import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.entity.UserEntity;
-
 import java.sql.*;
-
 public class JdbcUserDao implements UserDao {
     private Connection connection = ConnectionFactory.getConnection();
-
     @Override
     public Long save(UserEntity userEntity) {
         ResultSet rs = null;
@@ -35,7 +31,6 @@ public class JdbcUserDao implements UserDao {
             }
         }
     }
-
     @Override
     public UserEntity findById(Long id) {
         UserEntity userEntity=new UserEntity();
@@ -55,7 +50,6 @@ public class JdbcUserDao implements UserDao {
         }
         return userEntity;
     }
-
     @Override
     public UserEntity findByNameAndPassword(String name, String password) {
         UserEntity userEntity=new UserEntity();
