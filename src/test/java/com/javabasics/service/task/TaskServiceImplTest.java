@@ -34,7 +34,7 @@ public class TaskServiceImplTest {
         assertTrue(taskId!=null && taskId!=0);
     }
     @Test
-    public void ListIsNotNullAfterFindingByUserId()
+    public void listIsNotNullAfterFindingByUserId()
     {
         Task task=new Task();
         task.name="Dont forget";

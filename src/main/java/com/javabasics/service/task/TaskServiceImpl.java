@@ -6,6 +6,7 @@ import com.javabasics.service.task.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskServiceImpl implements TaskService
 {
@@ -23,21 +24,17 @@ public class TaskServiceImpl implements TaskService
     @Override
     public Task findById(Long id) {
 
-        return taskEntityToTask(taskDao.findById(id));
+        return convertToTask(taskDao.findById(id));
     }
 
     @Override
     public List<Task> findByUserId(Long userId) {
-        List<TaskEntity> taskEntities=taskDao.findByUserId(userId);
-        List<Task> tasks=new ArrayList<>();
-        for(int i=0;i<=taskEntities.size()-1;i++)
-        {
-            tasks.add(taskEntityToTask(taskEntities.get(i)));
-        }
-        return tasks;
+        return taskDao.findByUserId(userId).stream()
+                .map(this::convertToTask)
+                .collect(Collectors.toList());
     }
 
-    private Task taskEntityToTask(TaskEntity taskEntity)
+    private Task convertToTask(TaskEntity taskEntity)
     {
         Task task=new Task();
         task.id=taskEntity.id;
