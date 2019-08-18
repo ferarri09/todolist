@@ -8,15 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 public class GenericDao<T> {
-    Connection connection=ConnectionFactory.getConnection();
-    public Long save(T t)
-    {
+    Connection connection = ConnectionFactory.getConnection();
+    public Long save(T t) {
         ResultSet rs;
-        String tableName=t.getClass().getSimpleName();
+        String tableName = t.getClass().getSimpleName();
         List<String> fieldNames = new ArrayList<>();
         List<String> fieldValues = new ArrayList<>();
         Field[] fields = t.getClass().getDeclaredFields();
-        for (Field field: fields) {
+        for (Field field : fields) {
             field.setAccessible(true);
             fieldNames.add(field.getName());
             try {
@@ -25,19 +24,17 @@ public class GenericDao<T> {
                 e.printStackTrace();
             }
         }
-        Statement statement= null;
+        Statement statement = null;
         try {
             statement = connection.createStatement();
             statement.executeUpdate("insert into " + tableName + "(" + String.join(",", fieldNames) + ") values(" + String.join(",", fieldValues) + ")");
-            rs=statement.executeQuery("select LAST_INSERT_ID() as id");
-            if(rs.next())
-            {
+            rs = statement.executeQuery("select LAST_INSERT_ID() as id");
+            if (rs.next()) {
                 return rs.getLong("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

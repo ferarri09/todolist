@@ -7,7 +7,8 @@ public class Role {
         this.id = id;
         this.name = name;
     }
-    public Role() {}
+    public Role() {
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
