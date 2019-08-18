@@ -61,6 +61,9 @@ public class GenericDao<T> {
         try {
             statement=connection.createStatement();
             rs=statement.executeQuery("select * from "+tableName+" where id="+id);
+            if(rs.next()) {
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
