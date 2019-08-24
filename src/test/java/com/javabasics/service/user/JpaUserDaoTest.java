@@ -30,7 +30,7 @@ public class JpaUserDaoTest
         assertEquals(userEntity, returnedUserEntity);
     }
     /*@Test
-    public void userIsNotNullAfterFinding()
+    public void userIsEqualUserAfterFindingByNameAndPassword()
     {
         User user = new User();
         user.name="John2" + System.currentTimeMillis();
