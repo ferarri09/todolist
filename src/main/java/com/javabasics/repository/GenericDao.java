@@ -9,6 +9,9 @@ import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class GenericDao<T> {
     private Class<?> entityType;
     private Connection connection = ConnectionFactory.getConnection();
@@ -90,7 +93,38 @@ public class GenericDao<T> {
 
         return t;
     }
+    public List<T> findByParameters(Map<String, Object> parameters)
+    {
+        Field[] fields= entityType.getDeclaredFields();
+        List<T> entities=new ArrayList<>();
+        String filter=parameters.entrySet()
+                .parallelStream()
+                .map(entry->entry.getKey()+" = '"+entry.getValue()+"'")
+                .collect(Collectors.joining(" and "));
+        ResultSet rs;
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            rs = statement.executeQuery("select * from " + getTableName() + " where " + filter);
+            while(rs.next())
+            {
+                T t=(T)entityType.newInstance();
+                for(Field field:fields)
+                {
+                    field.set(t,rs.getObject(getColumnName(field)));
+                    entities.add(t);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
 
+        return entities;
+    }
     private String getTableName() {
         Table table = entityType.getAnnotation(Table.class);
         if (table != null) {

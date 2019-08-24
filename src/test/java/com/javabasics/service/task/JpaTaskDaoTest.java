@@ -14,11 +14,15 @@ import com.javabasics.service.user.model.User;
 import org.junit.Test;
 import junit.framework.TestCase.*;
 
+import javax.validation.constraints.Size;
+
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class JpaTaskDaoTest {
-    private TaskDao jpaTaskDao=new JpaTaskDao();
+    private TaskDao taskDao=new JpaTaskDao();
     private UserDao userDao=new JpaUserDao();
     private UserService userService=new UserServiceImpl(userDao);
     @Test
@@ -31,7 +35,7 @@ public class JpaTaskDaoTest {
         TaskEntity taskEntity=new TaskEntity();
         taskEntity.name="Dont forget";
         taskEntity.userId=id;
-        Long taskId=jpaTaskDao.save(taskEntity);
+        Long taskId=taskDao.save(taskEntity);
         assertTrue(taskId!=null && taskId!=0);
     }
     @Test
@@ -44,8 +48,23 @@ public class JpaTaskDaoTest {
         TaskEntity taskEntity=new TaskEntity();
         taskEntity.name="Dont forget";
         taskEntity.userId=userId;
-        Long taskId=jpaTaskDao.save(taskEntity);
-        TaskEntity returnedTaskEntity=jpaTaskDao.findById(taskId);
+        Long taskId=taskDao.save(taskEntity);
+        TaskEntity returnedTaskEntity=taskDao.findById(taskId);
         assertEquals(taskEntity,returnedTaskEntity);
+    }
+    @Test
+    public void taskIsEqualTaskAfterFindingByUserId()
+    {
+        List<TaskEntity> tasks;
+        User user=new User();
+        user.name="name"+System.currentTimeMillis();
+        user.password="12345678";
+        Long userId=userService.save(user);
+        TaskEntity taskEntity=new TaskEntity();
+        taskEntity.name="Dont forget";
+        taskEntity.userId=userId;
+        Long taskId=taskDao.save(taskEntity);
+        tasks=taskDao.findByUserId(userId);
+        assertTrue(!tasks.isEmpty());
     }
 }
