@@ -5,6 +5,7 @@ import com.javabasics.repository.task.JdbcTaskDao;
 import com.javabasics.repository.task.JpaTaskDao;
 import com.javabasics.repository.task.TaskDao;
 import com.javabasics.repository.user.JdbcUserDao;
+import com.javabasics.repository.user.JpaUserDao;
 import com.javabasics.repository.user.UserDao;
 import com.javabasics.service.task.model.Task;
 import com.javabasics.service.user.UserService;
@@ -17,9 +18,9 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class JpaTaskDaoTest {
-    TaskDao jpaTaskDao=new JpaTaskDao();
-    UserDao userDao=new JdbcUserDao();
-    UserService userService=new UserServiceImpl(userDao);
+    private TaskDao jpaTaskDao=new JpaTaskDao();
+    private UserDao userDao=new JpaUserDao();
+    private UserService userService=new UserServiceImpl(userDao);
     @Test
     public void checkReturnedIdAfterSaving()
     {
