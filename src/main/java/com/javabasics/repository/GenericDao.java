@@ -19,7 +19,6 @@ public class GenericDao<T> {
 
     public Long save(T t) {
         ResultSet rs;
-        String tableName = t.getClass().getSimpleName().replace("Entity", "");
         List<String> fieldNames = new ArrayList<>();
         List<String> fieldValues = new ArrayList<>();
         Field[] fields = t.getClass().getDeclaredFields();
@@ -27,12 +26,9 @@ public class GenericDao<T> {
             Id idAnnotation = field.getAnnotation(Id.class);
             if (idAnnotation == null) {
                 field.setAccessible(true);
-                Column column = field.getAnnotation(Column.class);
-                if (column != null) {
-                    fieldNames.add(column.value());
-                } else {
-                    fieldNames.add(field.getName());
-                }
+
+
+                fieldNames.add(getColumnName(field));
 
                 try {
                     fieldValues.add("'" + field.get(t) + "'");
@@ -44,7 +40,7 @@ public class GenericDao<T> {
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            statement.executeUpdate("insert into " + tableName + "(" + String.join(",", fieldNames) + ") values(" + String.join(",", fieldValues) + ")");
+            statement.executeUpdate("insert into " + getTableName() + "(" + String.join(",", fieldNames) + ") values(" + String.join(",", fieldValues) + ")");
             rs = statement.executeQuery("select LAST_INSERT_ID() as id");
             if (rs.next()) {
                 return rs.getLong("id");
@@ -54,21 +50,54 @@ public class GenericDao<T> {
         }
         return null;
     }
+
+    private String getColumnName(Field field) {
+        Column column = field.getAnnotation(Column.class);
+        if (column != null) {
+            return column.value();
+        } else {
+            return field.getName();
+        }
+    }
+
     public T findById(Long id){
         ResultSet rs;
         Statement statement;
-        String tableName=entityType.getSimpleName().replace("Entity","");
+        T t = null;
+        try {
+            t = (T) entityType.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Field[] fields = entityType.getDeclaredFields();
         try {
             statement=connection.createStatement();
-            rs=statement.executeQuery("select * from "+tableName+" where id="+id);
+            rs=statement.executeQuery("select * from "+getTableName()+" where id="+id);
             if(rs.next()) {
-
+                for (Field field: fields) {
+                    try {
+                        field.set(t, rs.getObject(getColumnName(field)));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return t;
+    }
+
+    private String getTableName() {
+        Table table = entityType.getAnnotation(Table.class);
+        if (table != null) {
+            return table.value();
+        } else {
+            return entityType.getSimpleName();
+        }
     }
 
 }
