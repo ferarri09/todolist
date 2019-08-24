@@ -21,7 +21,7 @@ public class JpaUserDaoTest
         assertTrue(id!=null && id!=0);
     }
     @Test
-    public void userIsEqualUserAfterSaving() {
+    public void userIsEqualUserAfterFinding() {
         UserEntity userEntity=new UserEntity();
         userEntity.name="John2" + System.currentTimeMillis();
         userEntity.password="12345678";
