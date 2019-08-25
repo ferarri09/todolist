@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public User findByNameAndPassword(String name, String password) {
-        return convertToUser(userDao.findByNameAndPassword(name, password));
+        return convertToUser(userDao.findByNameAndPassword(name, password).get(1));
     }
     private UserEntity convertToUserEntity(User user) {
         UserEntity userEntity = new UserEntity();

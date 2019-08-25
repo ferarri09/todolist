@@ -29,14 +29,14 @@ public class JpaUserDaoTest
         UserEntity returnedUserEntity = userDao.findById(id);
         assertEquals(userEntity, returnedUserEntity);
     }
-    /*@Test
+    @Test
     public void userIsEqualUserAfterFindingByNameAndPassword()
     {
-        User user = new User();
-        user.name="John2" + System.currentTimeMillis();
-        user.password="12345678";
-        userService.save(user);
-        User returnedUser=userService.findByNameAndPassword(user.name,user.password);
-        assertEquals(user, returnedUser);
-    }*/
+        UserEntity userEntity = new UserEntity();
+        userEntity.name="John2" + System.currentTimeMillis();
+        userEntity.password="12345678";
+        userDao.save(userEntity);
+        UserEntity returnedUserEntity=userDao.findByNameAndPassword(userEntity.name,userEntity.password).get(1);
+        assertEquals(userEntity, returnedUserEntity);
+    }
 }

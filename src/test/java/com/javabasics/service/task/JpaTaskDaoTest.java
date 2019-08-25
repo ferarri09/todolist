@@ -1,20 +1,14 @@
 package com.javabasics.service.task;
 
 import com.javabasics.repository.entity.TaskEntity;
-import com.javabasics.repository.task.JdbcTaskDao;
 import com.javabasics.repository.task.JpaTaskDao;
 import com.javabasics.repository.task.TaskDao;
-import com.javabasics.repository.user.JdbcUserDao;
 import com.javabasics.repository.user.JpaUserDao;
 import com.javabasics.repository.user.UserDao;
-import com.javabasics.service.task.model.Task;
 import com.javabasics.service.user.UserService;
 import com.javabasics.service.user.UserServiceImpl;
 import com.javabasics.service.user.model.User;
 import org.junit.Test;
-import junit.framework.TestCase.*;
-
-import javax.validation.constraints.Size;
 
 import java.util.List;
 
@@ -60,11 +54,15 @@ public class JpaTaskDaoTest {
         user.name="name"+System.currentTimeMillis();
         user.password="12345678";
         Long userId=userService.save(user);
-        TaskEntity taskEntity=new TaskEntity();
-        taskEntity.name="Dont forget";
-        taskEntity.userId=userId;
-        Long taskId=taskDao.save(taskEntity);
+        TaskEntity taskEntity1=new TaskEntity();
+        taskEntity1.name="Dont forget";
+        taskEntity1.userId=userId;
+        TaskEntity taskEntity2=new TaskEntity();
+        taskEntity2.name="Dont forget2";
+        taskEntity2.userId=userId;
+        taskDao.save(taskEntity1);
+        taskDao.save(taskEntity2);
         tasks=taskDao.findByUserId(userId);
-        assertTrue(!tasks.isEmpty());
+        assertTrue(tasks.size()>=2);
     }
 }

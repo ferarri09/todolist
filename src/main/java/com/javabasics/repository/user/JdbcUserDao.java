@@ -2,12 +2,15 @@ package com.javabasics.repository.user;
 import com.javabasics.connection.ConnectionFactory;
 import com.javabasics.repository.entity.UserEntity;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class JdbcUserDao implements UserDao {
     private Connection connection = ConnectionFactory.getConnection();
     @Override
     public Long save(UserEntity userEntity) {
-        ResultSet rs = null;
-        PreparedStatement statement = null;
+        ResultSet rs;
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement("insert into user(name,password) values(?,?)");
             statement.setString(1, userEntity.name);
@@ -22,19 +25,12 @@ public class JdbcUserDao implements UserDao {
             return null;
         } catch (SQLException e) {
             throw new RuntimeException("Error has occurred during saving");
-        } finally {
-            try {
-                statement.close();
-                rs.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
     @Override
     public UserEntity findById(Long id) {
         UserEntity userEntity=new UserEntity();
-        PreparedStatement statement=null;
+        PreparedStatement statement;
         try {
             statement=connection.prepareStatement("select * from user where id = ?");
             statement.setLong(1,id);
@@ -51,9 +47,9 @@ public class JdbcUserDao implements UserDao {
         return userEntity;
     }
     @Override
-    public UserEntity findByNameAndPassword(String name, String password) {
+    public List<UserEntity> findByNameAndPassword(String name, String password) {
         UserEntity userEntity=new UserEntity();
-        PreparedStatement statement=null;
+        PreparedStatement statement;
         try {
             statement=connection.prepareStatement("select * from user where name=? and password=?");
             statement.setString(1,name);
@@ -68,6 +64,8 @@ public class JdbcUserDao implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return userEntity;
+        List<UserEntity> userEntities=new ArrayList<>();
+        userEntities.add(userEntity);
+        return userEntities;
     }
 }
