@@ -1,17 +1,25 @@
 package com.javabasics.controller;
+import com.javabasics.repository.task.JpaTaskDao;
+import com.javabasics.service.task.TaskService;
+import com.javabasics.service.task.TaskServiceImpl;
+import com.javabasics.service.task.model.Task;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("todo-list/task")
 public class TodoListController
 {
-    @GetMapping("hi")
-    public String helloWorld()
+    private TaskService taskService=new TaskServiceImpl(new JpaTaskDao());
+    @PostMapping("save")
+    public void save(@RequestBody Task task)
     {
-        return "Hi!!!";
+        taskService.save(task);
     }
-    @PostMapping("save-task")
-    public void saveTask(@RequestBody TaskDTO task)
+    @GetMapping("{userId}")
+    public List<Task> save(@PathVariable Long userId)
     {
-        System.out.println(task.name);
+        return taskService.findByUserId(userId);
     }
 }

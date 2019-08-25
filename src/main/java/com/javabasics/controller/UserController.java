@@ -1,7 +1,6 @@
 package com.javabasics.controller;
 
 import com.javabasics.repository.user.JpaUserDao;
-import com.javabasics.repository.user.UserDao;
 import com.javabasics.service.user.UserService;
 import com.javabasics.service.user.UserServiceImpl;
 import com.javabasics.service.user.model.User;
